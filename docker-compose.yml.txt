@@ -1,0 +1,45 @@
+version: '3'
+services:
+  api-gateway:
+    build: ./api-gateway # Path to API Gateway Dockerfile.
+    ports:
+      - "8080:8080"
+ frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
+  client-service:
+    build: ./client-service # Path to Client Service Dockerfile.
+    ports:
+      - "8081:8081"
+
+  config-service:
+    build: ./config-service # Path to Configuration Service Dockerfile.
+    ports:
+      - "8082:8082"
+
+  notification-service:
+    build: ./notification-service # Path to Notification Service Dockerfile.
+    ports:
+      - "8083:8083"
+
+  mongo-db:
+    image: mongo
+    container_name: mongodb_container
+    ports:
+      - "27017:27017"
+  prometheus:
+    image: prom/prometheus:v2.37.0
+    container_name: prometheus_container
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana-oss:v9.5.2
+    container_name: grafana_container
+    ports:
+      - "3000:3000"
