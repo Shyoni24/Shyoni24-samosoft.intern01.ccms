@@ -1,0 +1,4 @@
+com\example\notificationservice\controller\NotificationController.class
+com\example\notificationservice\model\Notification.class
+com\example\notificationservice\service\NotificationService.class
+com\example\notification_service\NotificationServiceApplication.class
